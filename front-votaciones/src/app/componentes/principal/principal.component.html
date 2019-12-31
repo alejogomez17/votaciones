@@ -1,0 +1,38 @@
+<div *ngIf="!cargando">
+    <div *ngIf="vista=='eleccion'">
+    <p-table [value]="elecciones">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Nombre</th>
+                <th>Inicio</th>
+                <th>Fin</th>
+                <th>Votar</th>
+                <th>Resultados</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-eleccion>
+            <tr>
+                <td>{{eleccion.nombre}}</td>
+                <td>{{eleccion.inicio}}</td>
+                <td>{{eleccion.fin}}</td>
+                <td align="center">
+                    <button pButton icon="pi pi-arrow-circle-up" (click)="iniciarVotacion(eleccion)"></button>
+                </td>
+                <td align="center">
+                    <button pButton icon="pi pi-search" (click)="verResultados(eleccion)"></button>
+                </td>
+            </tr>
+
+        </ng-template>
+    </p-table>
+</div>
+<div *ngIf="vista=='votacion'">
+    <app-eleccion (salir)="cargar()" [idEleccionSeleccionada]="eleccionSeleccionada.id"></app-eleccion>
+</div>
+<div *ngIf="vista=='resultado'">
+    <app-resultado (salir)="cargar()" [idEleccion]="eleccionSeleccionada.id"></app-resultado>
+</div>
+</div>
+<div *ngIf="cargando">
+    <p-progressBar mode="indeterminate"></p-progressBar>
+</div>

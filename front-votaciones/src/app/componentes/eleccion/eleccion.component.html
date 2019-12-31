@@ -1,0 +1,39 @@
+<div *ngIf="!cargando">
+    <div align="center">
+        <button type="button" pButton icon="pi pi-check" (click)="volverAPrincipal()" label="Salir"></button>
+    </div>
+    <div>
+        <img *ngFor="let opcion of opciones" id="{{opcion.id}}" class="opcion" (click)="imagen(opcion)"
+            src="{{opcion.imagen}}">
+    </div>
+    <p-dialog header="Votará por la siguiente opción" [(visible)]="display" [modal]="true" [responsive]="true"
+        [style]="{width: '350px', minWidth: '200px'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000"
+        [maximizable]="true">
+        <div align="center">
+            <h3>{{opcionSeleccionada.nombre}}</h3>
+        </div>
+        <div align="center">
+            <img width="200" height="200" src="{{opcionSeleccionada.imagen}}">
+        </div>
+        <p-footer>
+            <button type="button" pButton icon="pi pi-check" (click)="registrarVoto()" label="Si"></button>
+            <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No"
+                class="ui-button-secondary"></button>
+        </p-footer>
+    </p-dialog>
+    <p-dialog header="Voto regstraod con éxito" [(visible)]="votoRegistrado" [modal]="true" [responsive]="true"
+        [style]="{width: '350px', minWidth: '200px'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000"
+        [maximizable]="true">
+        <div align="center">
+            <h3>¿Desea ingresar otro voto?</h3>
+        </div>
+        <p-footer>
+            <button type="button" pButton icon="pi pi-check" (click)="registrarNuevoVoto()" label="Si"></button>
+            <button type="button" pButton icon="pi pi-close" (click)="volverAPrincipal()" label="No"
+                class="ui-button-secondary"></button>
+        </p-footer>
+    </p-dialog>
+</div>
+<div *ngIf="cargando">
+    <p-progressBar mode="indeterminate"></p-progressBar>
+</div>
